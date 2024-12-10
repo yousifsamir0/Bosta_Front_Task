@@ -1,14 +1,16 @@
-import { cn } from '@/lib/utils'
+import { useShipment } from '@/context/tracking-context'
+import { cn, getDateNoYear } from '@/lib/utils'
 import { Check } from 'lucide-react'
 
 
-type ProgressState = "Picked Up" | "Processing" | "Out for Delivery" | "Delivered"
+type ProgressState = "New" | "Picked Up" | "Processing" | "Out for Delivery" | "Delivered" | "Cancelled"
 type Props = {
     className?: string,
-    state: ProgressState
+    state: ProgressState | null
 }
 
 const ProgressBar = ({ className, state }: Props) => {
+
 
     const states: ProgressState[] = [
         'Picked Up',
@@ -25,6 +27,8 @@ const ProgressBar = ({ className, state }: Props) => {
     ]
     const stateIdx = states.findIndex(currentState => state === currentState)
 
+
+    const { currentStatus } = useShipment()
     return (
         <div className={cn(
             'w-full h-full flex md:justify-center items-center md:p-0 p-4',
@@ -66,14 +70,7 @@ const ProgressBar = ({ className, state }: Props) => {
                                 <Check className='size-3 text-white font-bold stroke-[3px]' />
                             }
                         </div>
-                    ))
-                    }
-                    {/* <div className='flex justify-center items-center size-4 rounded-full bg-[#0098A5] border-2 border-[#0098A5] absolute -top-1/2 start-0 translate-y-1/2 -translate-x-1/2'>
-                        <Check className='size-3 text-white font-bold stroke-[3px]' />
-                    </div>
-                    <div className='size-4 rounded-full bg-white border-2 border-[#E4E7EC] absolute -top-1/2 start-1/3 translate-y-1/2 -translate-x-1/2'> </div>
-                    <div className='size-4 rounded-full bg-white border-2 border-[#E4E7EC] absolute -top-1/2 start-2/3 translate-y-1/2 -translate-x-1/2'> </div>
-                    <div className='size-4 rounded-full bg-white border-2 border-[#E4E7EC] absolute -top-1/2 start-full translate-y-1/2 -translate-x-1/2'> </div> */}
+                    ))}
 
                 </div>
                 <div className={cn(
@@ -90,24 +87,11 @@ const ProgressBar = ({ className, state }: Props) => {
                                 stateIdx < index && 'text-[#667085]',
                                 stateIdx === index && 'mt-6 md:mt-0'
                             )}>{currentState}</h1>
-                            {(stateIdx === index) && (true) &&// condition if state already done and has date
-                                <h1 className='text-[12px] leading-4 font-normal'>{"Saturday Nov. 10"}</h1>
+                            {(stateIdx === index) && (currentStatus?.timestamp) &&// condition if state already done and has date
+                                <h1 className='text-[12px] leading-4 font-normal'>{getDateNoYear(currentStatus?.timestamp)}</h1>
                             }
                         </div>
                     ))}
-                    {/* <div className='flex-1'>
-                        <h1 className='text-[14px] leading-5 font-medium'>Picked Up</h1>
-                        <h1 className='text-[12px] leading-4 font-normal'>{"Saturday Nov. 10"}</h1>
-                    </div>
-                    <div className='flex-1'>
-                        <h1 className='text-[14px] leading-5 '>Processing</h1>
-                    </div>
-                    <div className='flex-1'>
-                        <h1 className='text-[14px] leading-5 '>Out for Delivery</h1>
-                    </div>
-                    <div className='flex-1'>
-                        <h1 className='text-[14px] leading-5 '>Delivered</h1>
-                    </div> */}
                 </div>
             </div>
 

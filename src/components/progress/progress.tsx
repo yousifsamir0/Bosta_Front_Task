@@ -1,33 +1,58 @@
-import { cn } from '@/lib/utils'
+import { cn, getFormattedDate } from '@/lib/utils'
 import ProgressBar from './progress-bar'
+import { useShipment } from '@/context/tracking-context'
 
+
+
+
+const stateMapper = (state: string) => {
+    return (state === 'Received at warehouse') ? "Processing" :
+        (state === 'Out for delivery') ? "Out for Delivery" :
+            (state === 'Delivered') ? "Delivered" :
+                (state === 'Preparing for shipment') ? "New" :
+                    (state === 'Order is under review') ? "New" :
+                        (state === 'Returned') ? "Cancelled" : null
+}
 
 type Props = {
     className?: string
 }
 
 const Progress = ({ className }: Props) => {
+
+    const {
+        currentStatus,
+        trackingNumber
+
+    } = useShipment();
+
     return (
         <div
             className={cn(className, "w-full flex justify-center font-Rubik")}
         >
             <div className='w-full border border-[#E4E7EC] rounded-lg shadow-lg '>
-                <div className='h-[100px] border-b border-b-[#E4E7EC] p-4'>
-                    <p className='uppercase text-muted-foreground leading-4'>{"Order #1234436534"}</p>
+                <div className='border-b border-b-[#E4E7EC] p-4'>
+                    <p className='uppercase text-muted-foreground text-[14px] leading-4'>{`Order #${trackingNumber}`}</p>
                     <h1 className='font-semibold text-[24px] leading-8 '>
-                        {"Arriving by "}
-                        <span className='text-[#0098A5]'>{"Sun Nov. 13"}</span>
+                        {currentStatus?.state}
                     </h1>
-                    <p className='text-muted-foreground leading-4'>{"Your order is expected to arrive within 2 -3 working days."}</p>
+                    {currentStatus?.msg &&
+                        <p className='text-muted-foreground text-[14px] leading-4'>
+                            {`${currentStatus.msg} `}
+                            {currentStatus?.timestamp &&
+                                <span className='text-[#0098A5]'>{`${getFormattedDate(currentStatus.timestamp)}`}</span>}
+                        </p>
+                    }
 
                 </div>
-                <div className={cn(
-                    'h-[350px]',
-                    'md:h-[128px]'
-                )}>
-                    {/* progress Bar*/}
-                    <ProgressBar state='Delivered' />
-                </div>
+                {currentStatus && stateMapper(currentStatus.state) &&
+                    <div className={cn(
+                        'h-[350px]',
+                        'md:h-[128px]'
+                    )}>
+                        {/* progress Bar*/}
+                        <ProgressBar state={stateMapper(currentStatus.state)} />
+                    </div>}
             </div>
         </div>
     )

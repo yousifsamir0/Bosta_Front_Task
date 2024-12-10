@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn, getTime } from '@/lib/utils'
 
 type Props = {
     className?: string;
@@ -15,7 +15,7 @@ const EventCard = ({ className, event }: Props) => {
             )}
         >
             <div className='text-[#111619] '>{event.state}</div>
-            <div className='text-[#667085] '>{'2:42 PM • Katameya, Cairo'}</div>
+            <div className='text-[#667085] '>{getTime(event.timestamp)}</div>
         </div>
     )
 }
