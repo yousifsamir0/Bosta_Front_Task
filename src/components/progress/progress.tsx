@@ -11,7 +11,7 @@ const Progress = ({ className }: Props) => {
         <div
             className={cn(className, "w-full flex justify-center font-Rubik")}
         >
-            <div className='w-3/5 border border-[#E4E7EC] rounded-lg shadow-lg '>
+            <div className='w-full border border-[#E4E7EC] rounded-lg shadow-lg '>
                 <div className='h-[100px] border-b border-b-[#E4E7EC] p-4'>
                     <p className='uppercase text-muted-foreground leading-4'>{"Order #1234436534"}</p>
                     <h1 className='font-semibold text-[24px] leading-8 '>
@@ -21,9 +21,12 @@ const Progress = ({ className }: Props) => {
                     <p className='text-muted-foreground leading-4'>{"Your order is expected to arrive within 2 -3 working days."}</p>
 
                 </div>
-                <div className='h-[128px]'>
+                <div className={cn(
+                    'h-[350px]',
+                    'md:h-[128px]'
+                )}>
                     {/* progress Bar*/}
-                    <ProgressBar state='Picked Up' />
+                    <ProgressBar state='Delivered' />
                 </div>
             </div>
         </div>

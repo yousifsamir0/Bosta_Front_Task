@@ -10,6 +10,8 @@ export default {
 			fontFamily: {
 				Cairo: ['Cairo', 'sans-serif'],
 				Rubik: ['Rubik', 'serif'],
+				Poppens: ['Poppens', 'sans-serif'],
+				Lato: ['Lato', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

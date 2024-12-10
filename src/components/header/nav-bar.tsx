@@ -7,7 +7,10 @@ type Props = {
 
 const NavBar = ({ className }: Props) => {
     return (
-        <nav className={cn([className, "w-full h-20  flex justify-center font-bold text-gray-800 "])}>
+        <nav className={cn(
+            "w-full h-20  flex justify-center font-bold text-gray-800",
+            className
+        )}>
             <div className="h-full w-[90%] flex justify-between gap-x-[10%]">
 
                 <div className="Logo h-full flex justify-center items-center">
