@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { LanguageSelect } from "./language-select"
 import { useTranslation } from "react-i18next"
 import SearchPop from "./search-popover"
+import DarkModeToggle from "../dark-mode-btn"
 
 
 type Props = {
@@ -46,6 +47,7 @@ const NavBar = ({ className }: Props) => {
                     {/* <div className="text-[#E30613] font-bold">ENG</div> */}
                     <SearchPop className="md:hidden block" />
                     <LanguageSelect />
+                    <DarkModeToggle />
                 </div>
 
             </div>

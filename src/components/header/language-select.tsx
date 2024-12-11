@@ -29,7 +29,7 @@ export function LanguageSelect({ className }: Props) {
                 defaultValue={i18n.language}
                 onValueChange={(v) => i18n.changeLanguage(v)}
             >
-                <SelectTrigger className="w-[100px] border-none outline-none focus:ring-0 focus:border-none text-red-600 text-lg">
+                <SelectTrigger className="w-[100px] border-none outline-none focus:ring-0 focus:border-none text-red-600 text-lg select-none">
                     <SelectValue placeholder="Select language" />
                 </SelectTrigger>
                 <SelectContent>

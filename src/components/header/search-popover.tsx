@@ -21,7 +21,7 @@ const SearchPop = ({ className }: Props) => {
         )}>
             <Popover>
                 <PopoverTrigger asChild>
-                    <SearchIcon className="cursor-pointer hover:scale-105" />
+                    <SearchIcon className="dark:text-[#fff] cursor-pointer hover:scale-105" />
                 </PopoverTrigger>
                 <PopoverContent className="w-80 mt-4 px-4">
                     <div className="grid gap-4">

@@ -24,7 +24,7 @@ const TrackingEvents = ({ className }: Props) => {
                             <React.Fragment key={day.date}>
                                 <div className='flex justify-start items-center gap-x-3'>
                                     <div className='size-4 bg-[#D0D5DD] rounded-full'></div>
-                                    <div className='text-[#111619] font-semibold text-[16px] leading-6 '>{day.date}</div>
+                                    <div className='text-[#111619] dark:text-[#fff] font-semibold text-[16px] leading-6 '>{day.date}</div>
                                 </div>
                                 <EventList className='mx-[7px]' key={day.date} events={day.events} />
                             </React.Fragment>

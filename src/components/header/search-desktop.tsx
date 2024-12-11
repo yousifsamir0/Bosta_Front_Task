@@ -25,7 +25,7 @@ const Search = ({ className }: Props) => {
     return (
         <div className={cn("w-full rounded-xl overflow-hidden flex shadow-lg ", className)}>
             <input
-                className=" border-r border-[#E2E8F0] p-2 w-full  focus:outline-none text-lg px-4 font-semibold"
+                className=" text-[#111619] border-r border-[#E2E8F0] p-2 w-full  focus:outline-none text-lg px-4 font-semibold"
                 type="text"
                 value={trackingNumber}
                 onChange={(e) => setTrackingNumber(e.target.value)}

@@ -16,7 +16,7 @@ const EventCard = ({ className, event }: Props) => {
                 className
             )}
         >
-            <div className='text-[#111619] '>{event.state}</div>
+            <div className='text-[#111619] dark:text-[#fff] '>{event.state}</div>
             <div className='text-[#667085] '>{getTime(event.timestamp, i18n.language)}</div>
         </div>
     )
