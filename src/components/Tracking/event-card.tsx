@@ -1,4 +1,5 @@
 import { cn, getTime } from '@/lib/utils'
+import { useTranslation } from 'react-i18next';
 
 type Props = {
     className?: string;
@@ -6,6 +7,7 @@ type Props = {
 }
 
 const EventCard = ({ className, event }: Props) => {
+    const { i18n } = useTranslation();
     return (
         <div
             className={cn(
@@ -15,7 +17,7 @@ const EventCard = ({ className, event }: Props) => {
             )}
         >
             <div className='text-[#111619] '>{event.state}</div>
-            <div className='text-[#667085] '>{getTime(event.timestamp)}</div>
+            <div className='text-[#667085] '>{getTime(event.timestamp, i18n.language)}</div>
         </div>
     )
 }

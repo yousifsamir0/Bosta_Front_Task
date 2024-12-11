@@ -1,9 +1,10 @@
 import { useShipment } from '@/context/tracking-context'
 import { cn, getDateNoYear } from '@/lib/utils'
 import { Check } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 
-type ProgressState = "New" | "Picked Up" | "Processing" | "Out for Delivery" | "Delivered" | "Cancelled"
+type ProgressState = "New" | "Picked Up" | "Processing" | "Out for Delivery" | "Delivered" | "Cancelled" | string
 type Props = {
     className?: string,
     state: ProgressState | null
@@ -26,9 +27,9 @@ const ProgressBar = ({ className, state }: Props) => {
 
     ]
     const stateIdx = states.findIndex(currentState => state === currentState)
-
-
     const { currentStatus } = useShipment()
+    const { t, i18n } = useTranslation()
+
     return (
         <div className={cn(
             'w-full h-full flex md:justify-center items-center md:p-0 p-4',
@@ -60,8 +61,9 @@ const ProgressBar = ({ className, state }: Props) => {
                             key={index}
                             className={cn(
                                 'flex justify-center items-center size-4 rounded-full bg-[#0098A5] border-2 border-[#0098A5] absolute',
-                                'md:-top-1/2 md:translate-y-1/2 md:-translate-x-1/2',
+                                `md:-top-1/2 md:translate-y-1/2 md:-translate-x-1/2`,
                                 '-start-1/2 -translate-y-1/2 translate-x-1/2',
+                                `${i18n.language === 'ar' && 'md:translate-x-1/2 -translate-x-1/2'}`,
                                 `${statesPositions[index].icon}`,
                                 stateIdx < index && "bg-white border-[#E4E7EC]"
                             )}
@@ -75,7 +77,7 @@ const ProgressBar = ({ className, state }: Props) => {
                 </div>
                 <div className={cn(
                     'md:w-full md:h-auto flex md:flex-row justify-between md:items-start md:ml-0 text-center',
-                    'flex-col h-[328px] ml-4'
+                    'flex-col h-[328px] mx-4'
                 )}>
                     {states.map((currentState, index) => (
                         <div className={cn(
@@ -86,9 +88,9 @@ const ProgressBar = ({ className, state }: Props) => {
                                 'text-[14px] leading-5 font-medium mt-1 md:mt-0',
                                 stateIdx < index && 'text-[#667085]',
                                 stateIdx === index && 'mt-6 md:mt-0'
-                            )}>{currentState}</h1>
+                            )}>{t(currentState)}</h1>
                             {(stateIdx === index) && (currentStatus?.timestamp) &&// condition if state already done and has date
-                                <h1 className='text-[12px] leading-4 font-normal'>{getDateNoYear(currentStatus?.timestamp)}</h1>
+                                <h1 className='text-[12px] leading-4 font-normal'>{getDateNoYear(currentStatus?.timestamp, i18n.language)}</h1>
                             }
                         </div>
                     ))}

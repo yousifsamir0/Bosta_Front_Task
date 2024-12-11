@@ -6,21 +6,21 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 //Todo: integrate types 
-export const getFormattedDate = (date: string) => {
-  return new Date(date).toLocaleDateString('en', { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+export const getFormattedDate = (date: string, lng = 'en') => {
+  return new Date(date).toLocaleDateString(lng, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
 }
-export const getDateNoYear = (date: string) => {
-  return new Date(date).toLocaleDateString('en', { weekday: "long", month: "short", day: "numeric" });
+export const getDateNoYear = (date: string, lng = 'en') => {
+  return new Date(date).toLocaleDateString(lng, { weekday: "long", month: "short", day: "numeric" });
 }
-export const getTime = (date: string) => {
-  return new Date(date).toLocaleString('en', { hour: 'numeric', minute: 'numeric', hour12: true })
+export const getTime = (date: string, lng = 'en') => {
+  return new Date(date).toLocaleString(lng, { hour: 'numeric', minute: 'numeric', hour12: true })
 }
 
-export function groupByDate(events: any) {
+export function groupByDate(events: any, lng = 'en') {
   const grouped = events.reduce((acc: any, event: any) => {
     // Extract the date part (YYYY-MM-DD) from the timestamp
     const _date = event.timestamp.split('T')[0];
-    const date = new Date(_date).toLocaleDateString('en', {
+    const date = new Date(_date).toLocaleDateString(lng, {
       weekday: "long",
       year: "numeric",
       month: "long",

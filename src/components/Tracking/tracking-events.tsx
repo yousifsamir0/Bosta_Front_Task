@@ -2,6 +2,7 @@ import { cn, groupByDate } from '@/lib/utils'
 import EventList from './event-list'
 import React from 'react'
 import { useShipment } from '@/context/tracking-context'
+import { useTranslation } from 'react-i18next'
 
 
 
@@ -11,12 +12,13 @@ type Props = {
 
 const TrackingEvents = ({ className }: Props) => {
     const { transitEvents } = useShipment()
-    const groupedEvents = transitEvents && groupByDate(transitEvents);
+    const { t, i18n } = useTranslation();
+    const groupedEvents = transitEvents && groupByDate(transitEvents, i18n.language);
     if (groupedEvents)
         return (
             < div className={cn("w-full flex justify-center font-Cairo", className)} >
                 <div className='w-full flex flex-col items-start justify-start gap-y-8'>
-                    <h1 className='text-[#667085] text-[20px] leading-7'>Tracking details</h1>
+                    <h1 className='text-[#667085] text-[20px] leading-7'>{t("Tracking details")}</h1>
                     <div className='flex flex-col gap-y-1'>
                         {groupedEvents.map((day: any) => (
                             <React.Fragment key={day.date}>

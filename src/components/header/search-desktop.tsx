@@ -1,9 +1,8 @@
 import { useShipment } from '@/context/tracking-context'
-import { fetchAPI } from '@/lib/api'
 import { cn } from '@/lib/utils'
-import { isAxiosError } from 'axios'
 import { SearchIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 
 type Props = {
@@ -11,53 +10,36 @@ type Props = {
 }
 
 const Search = ({ className }: Props) => {
-
+    const { t } = useTranslation();
     const [trackingNumber, setTrackingNumber] = useState<string>("")
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const [error, setError] = useState<{ error: string } | null>(null)
+    const { fetchData } = useShipment()
 
-    const { updateShipmentData } = useShipment()
-
-    const fetch = async () => {
-        setIsLoading(true);
-
-        try {
-            const response = await fetchAPI(`${trackingNumber}`);
-            if (response.data) {
-                console.log(response.data)
-                updateShipmentData(response.data)
-            }
-        } catch (error) {
-            if (isAxiosError(error)) {
-                setError({ error: error.message });
-            } else {
-                console.log(error)
-            }
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            buttonRef.current && buttonRef.current.click();
         }
-        finally {
-            setIsLoading(false);
-            console.log(trackingNumber)
-        }
-    }
-
+    };
 
 
     return (
-        <div className={cn(className, "w-full rounded-xl overflow-hidden flex shadow-lg ")}>
+        <div className={cn("w-full rounded-xl overflow-hidden flex shadow-lg ", className)}>
             <input
                 className=" border-r border-[#E2E8F0] p-2 w-full  focus:outline-none text-lg px-4 font-semibold"
                 type="text"
                 value={trackingNumber}
                 onChange={(e) => setTrackingNumber(e.target.value)}
-                placeholder="Tracking No."
+                onKeyDown={handleKeyDown}
+                placeholder={t("Tracking No")}
             />
-            <div
+            <button
+                ref={buttonRef}
                 className="icon bg-[#E30613] w-[60px] h-[68px] flex justify-center items-center cursor-pointer"
-                onClick={fetch}
+                onClick={() => trackingNumber && fetchData(trackingNumber)}
             >
                 <SearchIcon className='text-white size-[28px]' />
-            </div>
-        </div>
+            </button>
+        </div >
     )
 }
 
