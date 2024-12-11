@@ -41,6 +41,7 @@ export const ShipmentProvider = ({ children }: { children: React.ReactNode }) =>
         setCurrentStatus({ ...data.CurrentStatus, msg: currentMsg?.state });
         setTransitEvents(data.TransitEvents ?? null);
         setTrackingNumber(data.TrackingNumber)
+
     };
 
     const fetchData = (tn: string) => {

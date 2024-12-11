@@ -33,7 +33,11 @@ const Progress = ({ className }: Props) => {
 
     } = useShipment();
     const { t, i18n } = useTranslation()
-    if (currentStatus)
+    const stateText = currentStatus && stateMapper(currentStatus.code);
+    const isNotProgressable = ['Returned', 'Canceled'].includes(stateText as string)
+
+
+    if (currentStatus) {
         return (
             <div
                 className={cn(
@@ -60,7 +64,7 @@ const Progress = ({ className }: Props) => {
                         }
 
                     </div>
-                    {currentStatus && stateMapper(currentStatus.code) &&
+                    {currentStatus && stateText && !isNotProgressable &&
                         <div className={cn(
                             'h-[350px]',
                             'md:h-[128px]'
@@ -71,6 +75,7 @@ const Progress = ({ className }: Props) => {
                 </div>
             </div>
         )
+    }
 }
 
 export default Progress
