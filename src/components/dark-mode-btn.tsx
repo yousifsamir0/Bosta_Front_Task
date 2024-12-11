@@ -1,6 +1,6 @@
 import useLocalStorage from '@/hooks/local_storage';
 import { Moon, Sun } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export default function DarkModeToggle() {
 

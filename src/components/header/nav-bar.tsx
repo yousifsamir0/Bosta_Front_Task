@@ -13,7 +13,7 @@ type Props = {
 
 const NavBar = ({ className }: Props) => {
 
-    const [t, i18n] = useTranslation()
+    const { i18n } = useTranslation()
     const getLogo = () => {
         switch (i18n.language) {
             case 'en':
