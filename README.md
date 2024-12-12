@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React App with Vite
 
-Currently, two official plugins are available:
+This repository contains a React app setup using [Vite](https://vitejs.dev/), a fast build tool and development server. Follow the instructions below to install, run, and work with the app.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Assumptions
 
-## Expanding the ESLint configuration
+During the process of working with the API documentation, I assumed the following transit event codes and their meanings:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-   `10`: "Picked Up"
+-   `24`: "Processing"
+-   `30`: "Processing"
+-   `41`: "Out for Delivery"
+-   `45`: "Delivered"
+-   `47`: "Canceled"
+-   `46`: "Returned"
 
-- Configure the top-level `parserOptions` property like this:
+### Progress Bar Assumptions
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-   For "Canceled" and "Returned" events, I assumed that the status should be displayed without a progress bar.
+-   For other transit events, the progress bar will display only the timestamp of the current state, as the explanation for unknown transit event codes is unavailable.
+## Installation
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Clone the repository to your local machine:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   ```bash
+   git clone https://github.com/yousifsamir0/Bosta_Front_Task.git
+   cd Bosta_Front_Task
+   ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+  1. Install the required dependencies:
+
+	  ```bash
+	  npm install
+	  ```
+	  
+
+## Running the App
+
+1. To start the app in development mode, run the following command:
+
+   ```bash
+   npm run dev
+   ```
+
+  1. After running the command, open your browser and navigate to:
+
+	  ```bash
+	  http://localhost:5173
+	  ```
